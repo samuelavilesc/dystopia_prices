@@ -7,14 +7,15 @@ import mysql.connector
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
 }
+conn = mysql.connector.connect(
+    host="DB HOST",
+    user="DB USER",
+    password="DB PASSWORD",
+    database="DB NAME"
+)
 
 def initialize_database():
-    conn = mysql.connector.connect(
-        host="DB HOST",
-        user="DB USER",
-        password="DB PASSWORD",
-        database="DB NAME"
-    )
+
     cursor = conn.cursor()
 
     cursor.execute('''
@@ -25,9 +26,25 @@ def initialize_database():
             price FLOAT
         )
     ''')
+                
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS products_pcbox (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            url VARCHAR(255),
+            owner VARCHAR(255),
+            name VARCHAR(100)
+        )
+    ''')
+                
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255),
+            password VARCHAR(255)
+        )  
+    ''')
 
     conn.commit()
-    conn.close()
 
 def get_price(url):
     response = requests.get(url, headers=HEADERS)
@@ -44,12 +61,7 @@ def get_price(url):
 def save_price(url, price):
     current_time = datetime.now()
 
-    conn = mysql.connector.connect(
-        host="PMYSQL171.dns-servicio.com",
-        user="mikaelsamuel",
-        password="mikaelsamuel123",
-        database="9807632_database"
-    )
+    
     cursor = conn.cursor()
 
     cursor.execute('''
@@ -58,18 +70,11 @@ def save_price(url, price):
     ''', (url, current_time, price))
 
     conn.commit()
-    conn.close()
     print("Price saved to database")
 
 def main():
     initialize_database()
 
-    conn = mysql.connector.connect(
-        host="PMYSQL171.dns-servicio.com",
-        user="mikaelsamuel",
-        password="mikaelsamuel123",
-        database="9807632_database"
-    )
     cursor = conn.cursor()
 
     try:
