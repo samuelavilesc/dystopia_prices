@@ -10,10 +10,10 @@ HEADERS = {
 
 def initialize_database():
     conn = mysql.connector.connect(
-        host="PMYSQL171.dns-servicio.com",
-        user="mikaelsamuel",
-        password="mikaelsamuel123",
-        database="9807632_database"
+        host="DB HOST",
+        user="DB USER",
+        password="DB PASSWORD",
+        database="DB NAME"
     )
     cursor = conn.cursor()
 
