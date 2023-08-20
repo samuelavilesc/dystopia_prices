@@ -17,5 +17,6 @@
  (on python folder)
      ```bash
      pip install -r requirements.txt
- 4. Modify the DB conection parameters on "conexiobdb.php"
- 5. Run the website, register a user, login, add a product and execute the python script to update the price and the chart of the panel.
+ 4. Modify the DB conection parameters on "conexiobdb.php" and on the python script
+ 5. Run the python script, it will create new tables on the db configurated to work with this project.
+ 6. Run the website, register a user, login, add a product and execute the python script to update the price and the chart of the panel.
